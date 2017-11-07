@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World</title>
+</head>
+<body>
+  <hello-world></hello-world>
+  <script>
+    class Hello extends HTMLElement {
+      constructor() {
+        super();
+        this.innerHTML = '<p>Hello World!</p>'
+      }
+      get hoge() {
+        return this.getAttribute('hoge');
+      }
+
+      set hoge(val) {
+        if(val) {
+          this.setAttribute('hoge', val);
+        } else {
+          this.removeAttribute('hoge');
+        }
+      }
+    }
+    window.customElements.define('hello-world', Hello);
+  </script>
+</body>
+</html>
