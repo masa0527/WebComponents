@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>syncattr</title>
+</head>
+<body>
+<sync-attr></sync-attr>
+<button>attr</button>
+<script>
+  class SyncAttrElement extends HTMLElement {
+    static get observedAttributes() {
+      return ['attr'];
+    }
+
+    constructor() {
+      super();
+      this.render('Hi!');
+    }
+
+    get attr() {
+      return this.getAttribute('attr');
+    }
+
+    set attr(val) {
+      if (val) {
+        this.setAttribute('attr', val);
+      } else {
+        this.removeAttribute('attr');
+      }
+    }
+
+    attributeChangedCallback(attrName, oldVal, newVal) {
+      console.log(attrName, oldVal, newVal);
+      this.render(newVal);
+    }
+
+    render(innerText) {
+      this.innerHTML = `<p>${innerText}</p>`
+    }
+  }
+
+  window.customElements.define('sync-attr', SyncAttrElement);
+  const btn = document.querySelector('button');
+  btn.addEventListener('click', () => {
+    document.querySelector('sync-attr').attr = 'hogehoge';
+  });
+</script>
+</body>
+</html>
